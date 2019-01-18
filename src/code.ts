@@ -1,15 +1,30 @@
-import { Observable } from 'rxjs/Observable';
+//import { Observable } from 'rxjs/Observable';
 //import { merge } from "rxjs/observable/merge";
 
-import "rxjs/add/operator/map";
+import { from } from 'rxjs/Observable/from';
+//import "rxjs/add/operator/map";
+import "rxjs/add/operator/pluck";
 
 
-Observable.create((observer: any) => {
+from([
+    { first: "Mats", last: "Williamson", age: "41" },
+    { first: "Lidia", last: "Olsen", age: "27" },
+    { first: "Krista", last: "John", age: "32" }
+])
+
+    .pluck("first")
+    .subscribe((x: any) => addItem(x));
+
+
+
+
+/* Observable.create((observer: any) => {
     observer.next("Hello");
 })
 
     .map((val: any) => val.toUpperCase())
     .subscribe((x: any) => addItem(x));
+ */
 
 
 
