@@ -1,8 +1,10 @@
+//import { Subject } from 'rxjs/Subject';
 //import { Observable } from 'rxjs/Observable';
 //import { merge } from "rxjs/observable/merge";
 
-import { from } from 'rxjs/Observable/from';
+
 //import "rxjs/add/operator/map";
+/* import { from } from 'rxjs/Observable/from';
 import "rxjs/add/operator/pluck";
 
 
@@ -14,6 +16,7 @@ from([
 
     .pluck("first")
     .subscribe((x: any) => addItem(x));
+ */
 
 
 
@@ -41,8 +44,28 @@ var newObs = merge(observable, observable2);
 newObs.subscribe((x: any) => addItem(x));
 */
 
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { interval } from 'rxjs/Observable/interval';
+import "rxjs/add/operator/skipUntil";
 
 
+var observableA = Observable.create((data: any) => {
+    var i = 1;
+    setInterval(() => {
+        data.next(i++);
+    }, 1000);
+});
+
+var observableB = new Subject;
+
+setTimeout(() => {
+    observableB.next("Hello")
+}, 5000)
+
+var observ = observableA.skipUntil(observableB);
+
+observ.subscribe((x: any) => addItem(x));
 
 function addItem(val: any) {
 
